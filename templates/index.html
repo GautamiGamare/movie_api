@@ -1,0 +1,33 @@
+{% extends 'common.html' %}
+{% block movie1 %}
+<div class="container-fluid" id="firstDiv">
+<div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12" style="padding-left: 3%; padding-top: 3% ">
+        <div class="card text-white bg-dark mb-3" style="max-width: 800px; max-height: 600px;">
+            <img src="{{ max.poster }}" class="card-img-top" alt="{{ max_rating.title }}" width="200px" height="350px">
+            <div class="card-body">
+                <h3 class="card-title">{{ max.title }}</h3>
+                <p class="card-text">{{ max.plot }}</p>
+                <p class="card-text"><span class="btn btn-outline-light">Have Highest ratings : {{ max.rating }}</span></p>
+                <a href="{{ max.trailer }}" class="btn btn-outline-light"> Click here to watch Trailer</a>
+            </div>
+        </div>
+    </div>
+
+<!--Second Div--->
+
+    <div class="col-lg-3 col-md-3" style="color: white;text-align: center;padding-right: 3%">
+    <h3 style="text-align:center">Up Next</h3>
+    <table class="table" style="color: white;" >
+        {% for x in data %}
+        <tr>
+            <th rowspan="2"><img src="{{ x.poster }}" height="80" width="80"></th>
+            <th><a href="{% url 'searchMovie' %}?sLink={{ x.title }}" >{{ x.title }}</a> </th>
+        </tr>
+        <tr><th>{{ x.rating }}</th></tr>
+        {% endfor %}
+    </table>
+    </div>
+</div>
+</div>
+{% endblock %}

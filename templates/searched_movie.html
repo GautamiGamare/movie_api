@@ -1,0 +1,22 @@
+{% extends 'common.html' %}
+{% block movie1 %}
+<center>
+        <div class="card text-white bg-dark mb-3 " style="max-width: 800px; max-height: 600px; text-align: center;" id="card1">
+            <div class="row no-gutters">
+            <div class="col-md-4">
+                 <img src="{{ data.poster }}" class="card-img" alt="{{ data.title }} Image Not available">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">{{ data.title }}</h3>
+                    <p class="card-text">{{ data.plot }}</p>
+                    <p class="card-text"><h6 class="btn btn-outline-light">Rating : {{ data.rating }}</h6></p>
+                    <a href="{{ data.trailer }}" class="btn btn-outline-light">Watch Movie Trailer Here</a>
+                </div>
+            </div>
+            </div>
+        </div>
+</center>
+
+
+{% endblock %}
