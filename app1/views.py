@@ -3,7 +3,7 @@ from django.contrib.messages import error
 from django.http import HttpResponse
 from django.shortcuts import render
 from imdbRatings.settings import movies_json_file
-
+from django.core.paginator import Paginator
 
 def dict_data():
     dict_data = json.loads(open(movies_json_file).read())
@@ -23,9 +23,9 @@ def dict_data():
              x['title'] != '' and x['poster'] != '' and x['trailer']['link'] != '' and x['rating'] != '' and x[
                  'plot'] != '']
 
-    # print(titles)
-    # print(len(ratings))
-    # print(len(posters))
+    #print(titles)
+    #print(len(ratings))
+    #print(len(posters))
 
     context = [{'title': title, 'poster': poster, 'rating': rating, 'plot': plot, 'trailer': trailer} for
                title, poster, rating, plot, trailer in zip(titles, posters, ratings, plots, trailer_links)]
@@ -34,11 +34,12 @@ def dict_data():
 
 def showIndex(request):
     data = dict_data()
+    pg = Paginator(data,6)
+    page_num = request.GET.get("page_no",1)
+    page =pg.page(page_num)
     for x in data:
         if(x['rating'])>='9':
-            #max_rating = x['title']
-            #poster = x['poster']
-            return render(request,'index.html',{'data':data,'max':x})
+            return render(request,'index.html',{'page':page,'max':x})
 
 def searchMovie(request):
     name = request.GET.get('sMovie')

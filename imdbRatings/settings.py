@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'app1.middleware.moviesMiddleware',
+#    'app1.middleware.moviesMiddleware',
 ]
 
 ROOT_URLCONF = 'imdbRatings.urls'

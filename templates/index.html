@@ -19,7 +19,7 @@
     <div class="col-lg-3 col-md-3" style="color: white;text-align: center;padding-right: 3%">
     <h3 style="text-align:center">Up Next</h3>
     <table class="table" style="color: white;" >
-        {% for x in data %}
+        {% for x in page %}
         <tr>
             <th rowspan="2"><img src="{{ x.poster }}" height="80" width="80"></th>
             <th><a href="{% url 'searchMovie' %}?sLink={{ x.title }}" >{{ x.title }}</a> </th>
@@ -27,7 +27,71 @@
         <tr><th>{{ x.rating }}</th></tr>
         {% endfor %}
     </table>
+    <table>
+        <tr>
+        <td>
+            {% if page.has_previous %}
+                <a href="{% url 'main' %}?page_no={{ page.previous_page_number }}">
+                    <h5 style="color: white">Previous</h5></a>
+            {% else %}
+                {% endif %}
+
+            {% for x in page.paginator.page_range %}
+            <span>
+            <a href="{% url 'main' %}?page_no={{ x }}" style="color: white">
+                {{ x }}</a>
+            </span>
+            {% endfor %}
+
+            {% if page.has_next %}
+             <a href="{% url 'main' %}?page_no={{ page.next_page_number }}">
+                 <h5 style="color: white">Next</h5></a>
+            {% endif %}
+        </tr>
+    </table>
     </div>
 </div>
+</div>
+
+ <div class="container" style="margin-top: 20px;">
+<div class="row">
+     {% for x in page %}
+ <div class="col-md-4">
+  <div class="card text-white bg-secondary mb-3" style="max-width: 18rem; max-height: 40rem">
+    <img src="{{ x.poster }}" class="card-img-top" height="200px" width="100px" alt="Not available">
+    <div class="card-body">
+      <h5 class="card-title">{{ x.title }} - Rating : {{ x.rating }}</h5>
+      <p class="card-text">{{ x.plot }}</p>
+    </div>
+    <div class="card-footer">
+        <a href="{{ max.trailer }}" class="btn btn-outline-light"> Click here to watch Trailer</a>
+    </div>
+  </div>
+ </div>
+         {% if forloop.counter|divisibleby:3 %}
+         </div>
+         <div class="row">
+         {% endif %}
+         {% endfor %}
+</div>
+ </div>
+<div class="container" style="margin-top: 20px">
+<nav>
+  <ul class="pagination">
+    <li class="page-item disabled">
+        {% if page.has_previous %}
+      <a class="page-link" href="{% url 'main' %}?page_no={{ page.previous_page_number }}" tabindex="-1">Previous</a>
+    </li>
+      {% endif %}
+      {% for x in page.paginator.page_range %}
+      <li class="page-item"><a class="page-link" href="{% url 'main' %}?page_no={{ x }}">{{ x }}</a></li>
+    {% endfor %}
+      {% if page.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'main' %}?page_no={{ page.next_page_number }}">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
 </div>
 {% endblock %}
